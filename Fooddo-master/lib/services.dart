@@ -30,7 +30,6 @@ class Data {
 }
 
 class Services {
-
   static fetchUserPastDonation() async {
     Data.pastDonations.clear();
     Query pastDonations = FirebaseFirestore.instance
@@ -506,6 +505,7 @@ class Services {
         {
           "donationId": doc.id,
           "status": "accepted",
+          "reason": "",
           "foodName": doc["foodName"] ?? "",
           "timeStamp": DateFormat.yMMMEd().format(DateTime.now()).toString(),
         },
@@ -563,7 +563,7 @@ class Services {
 
   static fetchNotifications(String userPhone) async {
     print('called fetchNOtification');
- //   Data.notifications.clear();
+    Data.notifications.clear();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     QuerySnapshot notificationsQuerySnapshot = await firebaseFirestore
@@ -647,6 +647,7 @@ class Services {
         "status": "EnRoute",
         "foodName": donation.foodName,
         "timeStamp": DateFormat.yMMMEd().format(DateTime.now()).toString(),
+        "reason": ""
       },
     );
     var doc =
@@ -672,7 +673,6 @@ class Services {
   }
 
   static generateNotification(String userPhone) async {
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     await firebaseFirestore
         .collection("users")

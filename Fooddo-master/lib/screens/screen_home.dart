@@ -65,7 +65,10 @@ class _HomeState extends State<Home> {
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
-                  : Icon(Icons.refresh_sharp,color: Colors.green,),
+                  : Icon(
+                      Icons.refresh_sharp,
+                      color: Colors.green,
+                    ),
             ),
           ),
           InkWell(
@@ -92,19 +95,18 @@ class _HomeState extends State<Home> {
             onTap: () async {
               print("HERE");
               if (selectedScreen != 1) {
-    setState(() {
-    _loading = true;
-    });
-    }
-
-                await Services.generateNotification(Data.userPhone);
-                await Services.notificationRead();
-                await Services.fetchNotifications(Data.userPhone);
                 setState(() {
-                  selectedScreen = 1;
-                  _loading = false;
+                  _loading = true;
                 });
+              }
 
+              await Services.generateNotification(Data.userPhone);
+              await Services.notificationRead();
+              await Services.fetchNotifications(Data.userPhone);
+              setState(() {
+                selectedScreen = 1;
+                _loading = false;
+              });
             },
           ),
           PopupMenuButton<Choice>(
@@ -168,7 +170,6 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width,
               color: Colors.purple,
               child: Row(
-
                 children: [
                   InkWell(
                     child: Container(
@@ -177,8 +178,17 @@ class _HomeState extends State<Home> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.home, size: 30,color: Colors.white,),
-                            Text("Home",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                            Icon(
+                              Icons.home,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "Home",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
@@ -193,8 +203,7 @@ class _HomeState extends State<Home> {
                           selectedScreen = 0;
                           _loading = false;
                         });
-                      }
-                      else{
+                      } else {
                         Navigator.of(context).pushReplacementNamed(
                           Home.routeName,
                         );
@@ -208,8 +217,15 @@ class _HomeState extends State<Home> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.phone, size: 30,color: Colors.white,),
-                            Text("Call Charity",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                            Icon(
+                              Icons.phone,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            Text("Call Charity",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
