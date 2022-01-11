@@ -193,7 +193,55 @@ class _LoginState extends State<Login> {
                         : SizedBox(
                             height: 14,
                           ),
-                   ],
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_key.currentState.validate()) {
+                          setState(() {
+                            _loading = true;
+                          });
+                          _key.currentState.save();
+                          //TODO: Signin with provided email/password
+                          String result =
+                              await Services.signIn(_email, _password);
+                          if (result == "login-success") {
+                            await Services.fetchUser();
+                            Navigator.pushReplacementNamed(
+                              context,
+                              Home.pageRoute,
+                            );
+                          } else {
+                            setState(() {
+                              _loginFailed = true;
+                              switch (result) {
+                                case "user-not-found":
+                                  result = "No user found with that email";
+                                  break;
+                                case "wrong-password":
+                                  result = "Please double check your password";
+                                  break;
+                                default:
+                                  result =
+                                      "An error occured while trying to log in, please try again";
+                                  break;
+                              }
+                              errorMessage = result;
+                            });
+                          }
+                          setState(() {
+                            _loading = false;
+                          });
+                        }
+                      },
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
       ),
