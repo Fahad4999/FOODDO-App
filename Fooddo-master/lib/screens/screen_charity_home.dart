@@ -34,7 +34,6 @@ class _CharityDashboardState extends State<CharityDashboard> {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-
       drawer: Drawer(
         child: Column(
           children: [
@@ -69,13 +68,16 @@ class _CharityDashboardState extends State<CharityDashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Add Delivery Person",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                  Text(
+                    "Add Delivery Person",
+                    style: TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(width: 10),
                   Icon(Icons.person),
                 ],
               ),
               onPressed: () {
-
                 Navigator.pushNamed(context, SignUp.pageRoute);
               },
             ),
@@ -84,7 +86,11 @@ class _CharityDashboardState extends State<CharityDashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Accepted Donation",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                  Text(
+                    "Accepted Donation",
+                    style: TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(width: 10),
                   Icon(Icons.check),
                 ],
@@ -105,7 +111,11 @@ class _CharityDashboardState extends State<CharityDashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Rejected Donation",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                  Text(
+                    "Rejected Donation",
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(width: 10),
                   Icon(Icons.close),
                 ],
@@ -126,7 +136,11 @@ class _CharityDashboardState extends State<CharityDashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Completed Donation",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
+                  Text(
+                    "Completed Donation",
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(width: 10),
                   Icon(Icons.done_all_outlined),
                 ],
@@ -147,7 +161,11 @@ class _CharityDashboardState extends State<CharityDashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("EnRoute Donation",style: TextStyle(color: Colors.purple,fontWeight: FontWeight.bold),),
+                  Text(
+                    "EnRoute Donation",
+                    style: TextStyle(
+                        color: Colors.purple, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(width: 10),
                   Icon(Icons.delivery_dining),
                 ],
@@ -164,12 +182,6 @@ class _CharityDashboardState extends State<CharityDashboard> {
               },
             ),
             Divider(),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Center(
-                child: (loading) ? CircularProgressIndicator() : SizedBox(),
-              ),
-            ),
           ],
         ),
       ),
@@ -236,7 +248,7 @@ class _CharityDashboardState extends State<CharityDashboard> {
           itemBuilder: (BuildContext context, index) {
             return index == 0
                 ? Container(
-              color: Colors.red,
+                    color: Colors.red,
                     width: MediaQuery.of(context).size.width,
                     child: FlatButton(
                       onPressed: () {

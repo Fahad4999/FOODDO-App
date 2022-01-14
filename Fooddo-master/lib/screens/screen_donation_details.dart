@@ -126,7 +126,7 @@ class _DonationDetailsState extends State<DonationDetails> {
                   top: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white70,
+                  // color: Colors.white70,
                   boxShadow: [
                     const BoxShadow(
                       color: Colors.black12,
@@ -135,12 +135,11 @@ class _DonationDetailsState extends State<DonationDetails> {
                     ),
                   ],
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                 child: Column(
                   children: <Widget>[
                     Container(
-
-                      height: height * 0.2,
+                      height: height * 0.23,
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
