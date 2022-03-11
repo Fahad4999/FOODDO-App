@@ -173,6 +173,7 @@ class Services {
                   buttonText: "Dismiss",
                   onTap: () {
                     Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   },
                 ),
               ],

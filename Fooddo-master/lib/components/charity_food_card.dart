@@ -68,82 +68,85 @@ class _CharityFoodCardState extends State<CharityFoodCard> {
                     ? Image.asset(
                         "assets/broken_image.png",
                         height: widget.height * 0.7,
-                        width: widget.height * 0.7,
+                        width: widget.height * 0.6,
                         fit: BoxFit.cover,
                       )
                     : Image.network(
                         widget.donation.imgUrl,
                         height: widget.height * 0.7,
-                        width: widget.height * 0.7,
+                        width: widget.height * 0.6,
                         fit: BoxFit.cover,
                       ),
               ),
             ),
-            SizedBox(width: 5),
-            Container(
-              height: widget.height * 0.7,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        widget.donation.foodName,
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+            SizedBox(width: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 2),
+              child: Container(
+                height: widget.height * 0.7,
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          widget.donation.foodName,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                        Spacer(),
+                        if (widget.donation.status == "completed")
+                          Icon(
+                            Icons.done_all_outlined,
+                            color: Colors.blue[700],
+                          )
+                        else if (widget.donation.status == "waiting")
+                          Icon(
+                            Icons.schedule_outlined,
+                            color: Colors.indigo,
+                          )
+                        else if (widget.donation.status == "accepted")
+                          Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          )
+                        else if (widget.donation.status == "rejected")
+                          Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          )
+                        else if (widget.donation.status == "collecting")
+                          Icon(
+                            Icons.local_shipping_outlined,
+                            color: Colors.cyan,
+                          )
+                      ],
+                    ),
+                    Text(
+                      "${widget.donation.serving} People",
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
-                      Spacer(),
-                      if (widget.donation.status == "completed")
-                        Icon(
-                          Icons.done_all_outlined,
-                          color: Colors.blue[700],
-                        )
-                      else if (widget.donation.status == "waiting")
-                        Icon(
-                          Icons.schedule_outlined,
-                          color: Colors.indigo,
-                        )
-                      else if (widget.donation.status == "accepted")
-                        Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        )
-                      else if (widget.donation.status == "rejected")
-                        Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        )
-                      else if (widget.donation.status == "collecting")
-                        Icon(
-                          Icons.local_shipping_outlined,
-                          color: Colors.cyan,
-                        )
-                    ],
-                  ),
-                  Text(
-                    "${widget.donation.serving} People",
-                    style: TextStyle(
-                      fontSize: 18,
                     ),
-                  ),
-                  Text(
-                    "at ${widget.donation.recepient}",
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      "at ${widget.donation.recepient}",
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "on ${DateTime.fromMicrosecondsSinceEpoch(widget.donation.timeStamp.microsecondsSinceEpoch)}",
-                    style: TextStyle(
-                      fontSize: 14,
+                    Text(
+                      "on ${DateTime.fromMicrosecondsSinceEpoch(widget.donation.timeStamp.microsecondsSinceEpoch)}",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

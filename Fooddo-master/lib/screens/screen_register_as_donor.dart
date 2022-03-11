@@ -177,7 +177,7 @@ class _RegisterAsDonorState extends State<RegisterAsDonor> {
                             ),
                             hintText: "mail@example.com",
                             labelText:
-                                "Please provide email for mportant communication",
+                                "Please provide email for Important communication",
                             labelStyle: TextStyle(
                               color: Theme.of(context).accentColor,
                             ),
@@ -348,10 +348,11 @@ class _RegisterAsDonorState extends State<RegisterAsDonor> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ContinuationButton(
-                    buttonText: "Continue",
+                    buttonText: " Continue ",
                     onTap: () {
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
+                        showLoaderDialog(context);
                         setState(() {
                           _loading = true;
                         });
@@ -380,6 +381,25 @@ class _RegisterAsDonorState extends State<RegisterAsDonor> {
           ),
         ),
       ),
+    );
+  }
+
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+              margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

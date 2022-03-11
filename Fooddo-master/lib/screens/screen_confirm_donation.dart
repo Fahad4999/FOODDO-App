@@ -66,10 +66,8 @@ class _ConfirmDonationState extends State<ConfirmDonation> {
     final Map args = ModalRoute.of(context).settings.arguments as Map;
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         backgroundColor: Colors.white,
-
         centerTitle: true,
         title: Text(
           "Fooddo",
@@ -90,7 +88,6 @@ class _ConfirmDonationState extends State<ConfirmDonation> {
               : Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-
                     Text(
                       "Review Donation",
                       style: TextStyle(
@@ -184,7 +181,6 @@ class _ConfirmDonationState extends State<ConfirmDonation> {
                         SizedBox(height: 10),
                         TextField(
                           readOnly: true,
-
                           controller: _userNameController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -265,59 +261,55 @@ class _ConfirmDonationState extends State<ConfirmDonation> {
                         ),
                         SizedBox(height: 10),
                         TextField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 1,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
+                              ),
+                              labelText: "Time:",
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).accentColor,
+                              ),
+                              suffixText: "Minutes",
+                              hintText: _waitingTime.toString(),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
                               ),
                             ),
-                            labelText: "Time:",
-                            labelStyle: TextStyle(
-                              color: Theme.of(context).accentColor,
-                            ),
-                            suffixText: "Minutes",
-                            hintText: _waitingTime.toString(),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                          onChanged: (value) {
-                            if (value.contains('.') || value.contains('-')) {
-                              Fluttertoast.showToast(
-                                  msg: "Please Enter valid TIme");
-                             setState(() {
-                               _waitingTime=0;
-                             });
-
-                            }
-                            else {
-                              setState(() {
-                                _waitingTime = int.parse(value);
-                              });
-                            }
-
-                          }
-                        ),
+                            onChanged: (value) {
+                              if (value.contains('.') || value.contains('-')) {
+                                Fluttertoast.showToast(
+                                    msg: "Please Enter valid Time");
+                                setState(() {
+                                  _waitingTime = 0;
+                                });
+                              } else {
+                                setState(() {
+                                  _waitingTime = int.parse(value);
+                                });
+                              }
+                            }),
                         SizedBox(height: 10),
                         if (nameMissing)
                           Align(
@@ -454,23 +446,24 @@ class _ConfirmDonationState extends State<ConfirmDonation> {
                       ],
                     ),
                     ContinuationButton(
-                      buttonText: "Submit",
+                      buttonText: " Submit ",
                       onTap: freshFoodAgreement
                           ? () {
-                        String patttern = r'^[a-z A-Z]+$';
-                        RegExp regExp = new RegExp(patttern);
+                              String patttern = r'^[a-z A-Z]+$';
+                              RegExp regExp = new RegExp(patttern);
 
-
-                              if ((_foodName == null || _foodName.isEmpty||_foodDetails==null||_foodDetails.isEmpty||_waitingTime==0)) {
+                              if ((_foodName == null ||
+                                  _foodName.isEmpty ||
+                                  _foodDetails == null ||
+                                  _foodDetails.isEmpty ||
+                                  _waitingTime == 0)) {
                                 setState(() {
                                   nameMissing = true;
                                 });
-                              }
-                              else if(!regExp.hasMatch(_foodName)){
-                                Fluttertoast.showToast(msg: "Please Enter Valid Food Name");
-                              }
-
-                              else
+                              } else if (!regExp.hasMatch(_foodName)) {
+                                Fluttertoast.showToast(
+                                    msg: "Please Enter Valid Food Name");
+                              } else
                                 return showDialog(
                                   context: context,
                                   builder: (ctx) => AlertDialog(

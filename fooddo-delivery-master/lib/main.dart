@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         "/": (ctx) => SplashScreen(),
         Home.pageRoute: (ctx) => Home(),
         Login.pageRoute: (ctx) => Login(),
-        SignUp.pageRoute: (ctx) => SignUp(),
+        // SignUp.pageRoute: (ctx) => SignUp(),
         DonationDetails.pageRoute: (ctx) => DonationDetails(),
         CompletedAssignments.pageRoute: (ctx) => CompletedAssignments(),
       },

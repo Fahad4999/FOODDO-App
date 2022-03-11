@@ -199,10 +199,13 @@ class _LoginState extends State<Login> {
                           setState(() {
                             _loading = true;
                           });
-                          _key.currentState.save();
-                          //TODO: Signin with provided email/password
+                          // _key.currentState.save();
+
+                          print(_email);
+                          print(_password);
                           String result =
                               await Services.signIn(_email, _password);
+                          print(result);
                           if (result == "login-success") {
                             await Services.fetchUser();
                             Navigator.pushReplacementNamed(

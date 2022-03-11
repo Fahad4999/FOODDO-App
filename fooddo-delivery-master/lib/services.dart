@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fooddo_delivery/classes/delivery_person.dart';
 import 'package:intl/intl.dart';
-
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'classes/assignment.dart';
 import 'classes/donation.dart';
 
@@ -20,57 +20,63 @@ class Services {
       if (user == null)
         isLoggedIn = false;
       else {
-        String docId = user.email.replaceAll("@", "").replaceAll(".", "");
-        Data.userDocId = docId;
+        print(user.email);
+        //   String docId = user.email.replaceAll("@", "").replaceAll(".", "");
+        Data.userDocId = user.email;
         isLoggedIn = true;
       }
     });
     return isLoggedIn;
   }
 
-  static Future<String> signUp(
-    String email,
-    String password,
-    String name,
-    String phoneNumber,
-    String city,
-    int vehicleCapacity,
-  ) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    try {
-      String docId = email.replaceAll("@", "").replaceAll(".", "");
-      Data.userDocId = docId;
-      await firebaseFirestore.collection("deliverypersons").doc(docId).set({
-        "city": city,
-        "name": name,
-        "phone": phoneNumber,
-        "vehicleCapacity": vehicleCapacity,
-      });
-      await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return "user-created";
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        return e.code;
-      } else
-        return e.code;
-    } catch (e) {
-      return (e);
-    }
-  }
+  // static Future<String> signUp(
+  //   String email,
+  //   String password,
+  //   String name,
+  //   String phoneNumber,
+  //   String city,
+  //   int vehicleCapacity,
+  // ) async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  //   try {
+  //     String docId = email.replaceAll("@", "").replaceAll(".", "");
+  //     Data.userDocId = docId;
+  //     await firebaseFirestore.collection("deliverypersons").doc(docId).set({
+  //       "city": city,
+  //       "name": name,
+  //       "phone": phoneNumber,
+  //       "vehicleCapacity": vehicleCapacity,
+  //     });
+  //     await auth.createUserWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //     return "user-created";
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'email-already-in-use') {
+  //       return e.code;
+  //     } else
+  //       return e.code;
+  //   } catch (e) {
+  //     return (e);
+  //   }
+  // }
 
   static Future<String> signIn(
     String email,
     String password,
   ) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
-      String docId = email.replaceAll("@", "").replaceAll(".", "");
-      Data.userDocId = docId;
+      print(email);
+      print(password);
+      print("BEFORE");
+      fb_auth.UserCredential userCredential = await fb_auth
+          .FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      print("HERE ${userCredential}");
+
       return "login-success";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -101,15 +107,19 @@ class Services {
   }
 
   static fetchAssignments() async {
+    print("here in ass");
     Data.assignments.clear();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    print((Data.userDocId));
     var assignments = await firebaseFirestore
         .collection("deliverypersons")
         .doc(Data.userDocId)
         .collection("assignments")
         .get();
+    print("BYE ${assignments.docs.length}");
+    //print(assignments.docs.first["donationId"]);
 
-    if (assignments.docs.length == 0) return;
+    if (assignments.docs.length == 0) return null;
     assignments.docs.forEach((assignment) {
       print(assignment["donationId"]);
       Data.assignments.add(new Assignment(
